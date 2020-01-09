@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  app:
+    build: .
+    restart: always
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - /dev:/dev
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always 
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    network_mode: "host"
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: always
+    network_mode: "host"
