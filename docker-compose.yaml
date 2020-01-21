@@ -7,14 +7,25 @@ services:
     network_mode: "host"
     volumes:
       - /dev:/dev
+    logging:
+      options:
+        max-size: 10m
   prometheus:
     image: prom/prometheus:latest
     restart: always 
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     network_mode: "host"
+    logging:
+      options:
+        max-size: 10m
 
   grafana:
-    image: grafana/grafana:latest
+    build: ./grafana
     restart: always
+    volumes:
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
     network_mode: "host"
+    logging:
+      options:
+        max-size: 10m
